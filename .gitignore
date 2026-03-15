@@ -148,16 +148,6 @@ img/**
 /config/xml/**
 !/config/xml/.htaccess
 !/config/xml/index.php
-
-# Node.js and npm dependencies
-
-/node_modules
-package-lock.json
-
-# Playwright artifacts
-/playwright-report/
-/test-results/
-
 !/config/xml/qlo_mod_list.xml
 !config/xml/themes/
 !config/xml/themes/default.xml

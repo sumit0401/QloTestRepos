@@ -1,15 +1,21 @@
 import { defineConfig, devices } from '@playwright/test';
 import { config as configDotenv } from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, '../..');
 
 // Load environment variables from .env file
-configDotenv({ path: 'tests/e2e/.env' });
+configDotenv({ path: path.join(rootDir, 'tests/e2e/.env') });
 
 /**
  * Playwright configuration
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests/e2e/specs',
+  testDir: path.join(rootDir, 'tests/e2e/specs'),
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -20,9 +26,9 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ['html', { outputFolder: 'playwright-report' }],
-    ['json', { outputFile: 'test-results/results.json' }],
-    ['junit', { outputFile: 'test-results/junit.xml' }],
+    ['html', { outputFolder: path.join(rootDir, 'playwright-report') }],
+    ['json', { outputFile: path.join(rootDir, 'test-results/results.json') }],
+    ['junit', { outputFile: path.join(rootDir, 'test-results/junit.xml') }],
     ['list'],
     ...(process.env.CI ? [['github']] : []),
   ],
